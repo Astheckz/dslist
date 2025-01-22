@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "tb_game")
 public class Game {
@@ -18,29 +17,41 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
-	private String genre;
-	private String platforms;
-	private String imgUrl;
-	private String shortDescription;
-	private String longDescription;
+
 	@Column(name = "game_year")
 	private Integer year;
+	private String genre;
+	private String platforms;
 	private Double score;
-	
-	
+	private String imgUrl;
+
+	@Column(columnDefinition = "TEXT")
+	private String shortDescription;
+
+	@Column(columnDefinition = "TEXT")
+	private String longDescription;
+
 	public Game() {
 	}
 
-	public Game(String title, String genre, String platforms, String imgUrl, String shortDescription,
-			String longDescription, Integer year, Double score, Long id) {
+	public Game(Long id, String title, Integer year, String genre, String platforms, Double score,
+				String imgUrl, String shortDescription, String longDescription) {
+		this.id = id;
 		this.title = title;
+		this.year = year;
 		this.genre = genre;
 		this.platforms = platforms;
+		this.score = score;
 		this.imgUrl = imgUrl;
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;
-		this.year = year;
-		this.score = score;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -50,6 +61,14 @@ public class Game {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 
 	public String getGenre() {
@@ -66,6 +85,14 @@ public class Game {
 
 	public void setPlatforms(String platforms) {
 		this.platforms = platforms;
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
 	}
 
 	public String getImgUrl() {
@@ -92,30 +119,6 @@ public class Game {
 		this.longDescription = longDescription;
 	}
 
-	public Integer getYear() {
-		return year;
-	}
-
-	public void setYear(Integer year) {
-		this.year = year;
-	}
-
-	public Double getScore() {
-		return score;
-	}
-
-	public void setScore(Double score) {
-		this.score = score;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -132,8 +135,5 @@ public class Game {
 		Game other = (Game) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
 	
 }
